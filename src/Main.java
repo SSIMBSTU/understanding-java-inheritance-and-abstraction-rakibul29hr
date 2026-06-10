@@ -1,26 +1,63 @@
-// Main Class
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        /*
-         * Parent reference, Child object
-         * Demonstrates Runtime Polymorphism
-         */
-        Car car = new ToyotaPremio(
-                "White",
-                "Premio G Superior",
-                "Japan",
-                2023,
-                "Sedan"
+        // ArrayList of superclass references
+        // Used to demonstrate runtime polymorphism
+        ArrayList<UniversityMember> members = new ArrayList<>();
+
+        // Creating a Professor object
+        Professor p1 = new Professor(
+                101,
+                "Dr. Ziaur Rahman",
+                80000,
+                "ICT",
+                "OOP pattern",
+                15
         );
 
-        System.out.println("\n--- Method Calls ---");
+        // Creating an Administrative Officer object
+        Administrativeofficer a1 = new Administrativeofficer(
+                201,
+                "Mr. Kamal",
+                40000,
+                "Administration Office"
+        );
 
-        // Calls overridden method of ToyotaPremio
-        car.carType();
+        // Adding object
+        members.add(p1);
+        members.add(a1);
 
-        // Calls overridden method of ToyotaPremio
-        car.status();
+
+        for (UniversityMember member : members) {
+
+            member.displayBasicInfo();
+
+            // Runtime Polymorphism:
+            // Correct performDuty() is selected at runtime
+            member.performDuty();
+
+        }
+
+
+
+        for (UniversityMember member : members) {
+
+
+            if (member instanceof Professor) {
+
+                // Safe downcasting
+                Professor p = (Professor) member;
+
+                System.out.println("Professor Information:");
+
+                p.displayBasicInfo();
+
+                // Accessing Professor-specific method
+                p.showResearchProfile();
+            }
+        }
     }
 }
